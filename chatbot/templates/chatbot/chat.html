@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body{
+            background:#f5f7fb;
+        }
+
+        .chat-card{
+            max-width:900px;
+            margin:40px auto;
+            border:none;
+            border-radius:20px;
+            box-shadow:0 5px 20px rgba(0,0,0,.08);
+        }
+
+        .chat-header{
+            background:#0d6efd;
+            color:white;
+            padding:20px;
+            border-radius:20px 20px 0 0;
+        }
+
+        textarea{
+            resize:none;
+        }
+
+        .response-box{
+            background:#f8f9fa;
+            border-left:4px solid #0d6efd;
+            padding:20px;
+            border-radius:10px;
+            min-height:100px;
+            white-space:pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card chat-card">
+
+        <div class="chat-header">
+            <h3 class="mb-0">🤖 AI Assistant</h3>
+            <small>Powered by OpenAI</small>
+        </div>
+
+        <div class="card-body">
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label">
+                        Ask Anything
+                    </label>
+
+                    <textarea
+                        name="prompt"
+                        class="form-control"
+                        rows="5"
+                        placeholder="Type your question here..."
+                        required></textarea>
+                </div>
+
+                <button class="btn btn-primary">
+                    Ask AI
+                </button>
+            </form>
+
+            <hr>
+
+            <h5>Response</h5>
+
+            <div class="response-box">
+                {{ answer }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

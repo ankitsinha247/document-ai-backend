@@ -1,0 +1,172 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<div class="main">
+
+<div class="card">
+
+<div class="card-header bg-primary text-white">
+
+<h4>
+📚 Document Library
+</h4>
+
+</div>
+
+<div class="card-body">
+
+<form method="POST" action="{% url 'delete_documents' %}">
+{% csrf_token %}
+
+<div class="d-flex justify-content-between mb-3">
+
+<input
+type="text"
+class="form-control w-50"
+placeholder="Search documents..."
+>
+
+<button
+type="submit"
+class="btn btn-danger"
+onclick="return confirm('Delete selected documents?')"
+>
+🗑 Delete Selected
+</button>
+
+</div>
+
+<table class="table table-hover">
+
+<thead>
+
+<tr>
+
+<th>
+<input
+type="checkbox"
+id="select-all"
+>
+</th>
+
+<th>Title</th>
+<th>Type</th>
+<th>Status</th>
+<th>Uploaded</th>
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for doc in documents %}
+
+<tr>
+
+<td>
+
+<input
+type="checkbox"
+name="documents"
+value="{{ doc.id }}"
+class="doc-checkbox"
+>
+
+</td>
+
+<td>{{ doc.title }}</td>
+
+<td>{{ doc.document_type }}</td>
+
+<td>
+
+<span class="badge bg-success">
+
+{% if doc.status == "Processed" %}
+
+<span class="badge bg-success">
+Processed
+</span>
+
+{% elif doc.status == "OCR Required" %}
+
+<span class="badge bg-warning">
+OCR Required
+</span>
+
+{% else %}
+
+<span class="badge bg-secondary">
+{{ doc.status }}
+</span>
+
+{% endif %}
+
+</span>
+
+</td>
+
+<td>{{ doc.uploaded_at }}</td>
+
+<td>
+
+<a
+href="{{ doc.file.url }}"
+target="_blank"
+class="btn btn-sm btn-primary"
+>
+View
+</a>
+
+<a
+href="{{ doc.file.url }}"
+download
+class="btn btn-sm btn-success"
+>
+Download
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+document
+.getElementById("select-all")
+.addEventListener(
+"change",
+function(){
+
+document
+.querySelectorAll(".doc-checkbox")
+.forEach(
+checkbox => {
+checkbox.checked =
+this.checked;
+}
+);
+
+}
+);
+
+</script>
+
+{% endblock %}

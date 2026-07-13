@@ -1,0 +1,170 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+    <div class="row">
+
+        <!-- Chat Area -->
+
+        <div class="col-lg-8">
+
+            <div class="card shadow border-0">
+
+                <div class="card-header bg-primary text-white">
+
+                    <h4 class="mb-0">
+                        🤖 Document AI Assistant
+                    </h4>
+                    <small>
+                        Ask questions from your uploaded documents
+                    </small> 
+                  
+
+                </div>
+                
+
+                <div class="card-body">
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Select Document
+                            </label>
+
+                            <select
+                                name="document_id"
+                                class="form-select"
+                                required
+                            >
+
+                                <option value="">
+                                    Choose Document
+                                </option>
+
+                                {% for doc in documents %}
+
+                                <option value="{{ doc.id }}">
+                                    {{ doc.title }}
+                                </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Ask Question
+                            </label>
+
+                            <textarea
+                                name="question"
+                                rows="5"
+                                class="form-control"
+                                placeholder="Example: Summarize this document"
+                                required
+                            ></textarea>
+
+                        </div>
+
+                        <button
+                            class="btn btn-success btn-lg"
+                        >
+                            Ask AI
+                        </button>
+
+                    </form>
+
+                    {% if answer %}
+
+                    <hr>
+
+                    <div class="card mt-4 border-success">
+
+                        <div class="card-header bg-success text-white">
+
+                            AI Response
+
+                        </div>
+
+                        <div class="card-body">
+
+                            <p style="white-space: pre-line;">
+                                {{ answer }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Chat History -->
+
+        <div class="col-lg-4">
+
+            <div class="card shadow border-0">
+
+                <div class="card-header bg-dark text-white">
+
+                    Recent Questions
+
+                </div>
+
+                <div class="card-body">
+
+                    {% for item in history %}
+
+                    <div class="mb-3">
+
+                        <strong>
+                            Q:
+                        </strong>
+
+                        {{ item.question }}
+
+                        <br>
+
+                        <small class="text-muted">
+
+                            {{ item.created_at }}
+
+                        </small>
+
+                        <hr>
+
+                    </div>
+
+                    {% empty %}
+
+                    <p>
+                        No chat history found.
+                    </p>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+
+<div class="main">
+
+<div class="card">
+
+<div class="card-header bg-primary text-white">
+
+<h4>
+📄 Upload Document
+</h4>
+
+</div>
+
+
+
+
+<hr>
+<div class="card-body">
+<form method="POST" enctype="multipart/form-data">
+
+{% csrf_token %}
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Assessment Framework
+
+</label>
+
+{{ form.framework }}
+
+</div>
+
+<div class="mb-3">
+
+<label>
+Title
+</label>
+
+{{ form.title }}
+
+</div>
+
+<!-- <div class="mb-3">
+
+<label>
+Document Type
+</label>
+
+{{ form.document_type }}
+
+</div> -->
+
+<div class="mb-3">
+
+<label>
+Select File(s)
+</label>
+
+{{ form.files }}
+
+<div class="form-text text-muted">
+Allowed: PDF, ZIP, XLSX, PNG, JPG, JPEG.
+</div>
+
+</div>
+
+<div class="mb-3">
+  <button type="submit" class="btn btn-primary">
+    Upload Document
+  </button>
+</div>
+
+</form>
+</div>
+</div>
+</div>
+{% endblock %}

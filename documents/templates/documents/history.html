@@ -1,0 +1,80 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+
+
+
+<style>
+
+body{
+background:#f5f7fb;
+}
+
+
+
+.chat-card{
+background:white;
+padding:20px;
+border-radius:20px;
+margin-bottom:20px;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+</style>
+
+
+
+
+
+<div class="main">
+
+<div class="card">
+<div class="card-header bg-primary text-white">
+
+<h4>
+🕒  Chat History
+</h4>
+
+</div>
+
+
+
+{% for chat in chats %}
+
+<div class="chat-card">
+
+<h5>
+Question
+</h5>
+
+<p>
+
+{{ chat.question }}
+
+</p>
+
+<hr>
+
+<h5>
+Answer
+</h5>
+
+<p>
+
+{{ chat.answer }}
+
+</p>
+
+<small>
+
+{{ chat.created_at }}
+
+</small>
+
+</div>
+
+{% endfor %}
+
+</div>
+</div>
+{% endblock %}
